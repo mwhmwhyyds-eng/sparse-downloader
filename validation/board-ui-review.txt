@@ -1,0 +1,86 @@
+cc -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Werror src/sparseget.c src/ui.c -o sparseget 
+python3 tests/test_sparseget.py ./sparseget
+test_01_create_is_sparse_and_zero_filled (__main__.Tests) ... ok
+test_02_positional_write_preserves_other_bytes_and_holes (__main__.Tests) ... ok
+test_03_reject_bad_sizes_and_bounds (__main__.Tests) ... ok
+test_04_existing_file_is_never_truncated (__main__.Tests) ... ok
+test_05_full_download_is_byte_identical (__main__.Tests) ... ok
+test_06_ctrl_c_and_resume_from_saved_offset (__main__.Tests) ... ok
+test_07_changed_remote_data_rejected (__main__.Tests) ... ok
+test_08_modified_local_prefix_rejected (__main__.Tests) ... ok
+test_09_replaced_local_inode_rejected (__main__.Tests) ... ok
+test_10_bad_http_responses_are_rejected (__main__.Tests) ... ok
+test_11_network_truncation_can_resume (__main__.Tests) ... ok
+test_12_concurrent_writer_rejected (__main__.Tests) ... ok
+test_13_symlinks_and_non_regular_files_rejected (__main__.Tests) ... ok
+test_14_manual_write_to_managed_download_rejected (__main__.Tests) ... ok
+test_15_bad_state_and_changed_url_rejected (__main__.Tests) ... ok
+test_16_invalid_url_and_usage (__main__.Tests) ... ok
+test_17_empty_remote_file (__main__.Tests) ... ok
+test_18_uncheckpointed_suffix_is_overwritten_on_resume (__main__.Tests) ... ok
+test_19_maximum_accepted_url_round_trips_through_state (__main__.Tests) ... ok
+test_20_maximum_accepted_etag_round_trips_through_state (__main__.Tests) ... ok
+test_21_signed_content_range_is_rejected (__main__.Tests) ... ok
+test_22_sigkill_discards_uncommitted_tail (__main__.Tests) ... ok
+test_23_sigkill_during_each_commit_stage (__main__.Tests) ... ok
+test_24_commit_errors_never_report_success_or_saved_pause (__main__.Tests) ... ok
+test_25_final_partial_batch_is_saved (__main__.Tests) ... ok
+test_26_non_hash_etag_and_independent_sha256 (__main__.Tests) ... ok
+
+4 MiB current syscall counts: {'fdatasync': 5, 'fsync': 10, 'rename': 5}
+test_27_checkpoint_syscall_count (__main__.Tests) ... ok
+test_28_sync_interrupted_by_signal_retries_and_saves (__main__.Tests) ... ok
+test_29_initial_io_error_can_retry_without_manual_cleanup (__main__.Tests) ... ok
+test_30_hard_link_cannot_bypass_managed_write_protection (__main__.Tests) ... ok
+test_31_complete_reports_committed_final_offset (__main__.Tests) ... ok
+test_32_terminal_pause_resume_and_completion (__main__.Tests) ... ok
+test_33_terminal_status_and_plain_logs (__main__.Tests) ... ok
+test_34_narrow_terminal_no_color_and_error_output (__main__.Tests) ... ok
+
+----------------------------------------------------------------------
+Ran 34 tests in 6.713s
+
+OK
+cc -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -O1 -g -std=c11 -Wall -Wextra -Wpedantic -Werror -fsanitize=address,undefined -fno-omit-frame-pointer src/sparseget.c src/ui.c -o sparseget-asan  -fsanitize=address,undefined
+ASAN_OPTIONS=detect_leaks=0 SPARSEGET_SANITIZED=1 python3 tests/test_sparseget.py ./sparseget-asan
+test_01_create_is_sparse_and_zero_filled (__main__.Tests) ... ok
+test_02_positional_write_preserves_other_bytes_and_holes (__main__.Tests) ... ok
+test_03_reject_bad_sizes_and_bounds (__main__.Tests) ... ok
+test_04_existing_file_is_never_truncated (__main__.Tests) ... ok
+test_05_full_download_is_byte_identical (__main__.Tests) ... ok
+test_06_ctrl_c_and_resume_from_saved_offset (__main__.Tests) ... ok
+test_07_changed_remote_data_rejected (__main__.Tests) ... ok
+test_08_modified_local_prefix_rejected (__main__.Tests) ... ok
+test_09_replaced_local_inode_rejected (__main__.Tests) ... ok
+test_10_bad_http_responses_are_rejected (__main__.Tests) ... ok
+test_11_network_truncation_can_resume (__main__.Tests) ... ok
+test_12_concurrent_writer_rejected (__main__.Tests) ... ok
+test_13_symlinks_and_non_regular_files_rejected (__main__.Tests) ... ok
+test_14_manual_write_to_managed_download_rejected (__main__.Tests) ... ok
+test_15_bad_state_and_changed_url_rejected (__main__.Tests) ... ok
+test_16_invalid_url_and_usage (__main__.Tests) ... ok
+test_17_empty_remote_file (__main__.Tests) ... ok
+test_18_uncheckpointed_suffix_is_overwritten_on_resume (__main__.Tests) ... ok
+test_19_maximum_accepted_url_round_trips_through_state (__main__.Tests) ... ok
+test_20_maximum_accepted_etag_round_trips_through_state (__main__.Tests) ... ok
+test_21_signed_content_range_is_rejected (__main__.Tests) ... ok
+test_22_sigkill_discards_uncommitted_tail (__main__.Tests) ... ok
+test_23_sigkill_during_each_commit_stage (__main__.Tests) ... ok
+test_24_commit_errors_never_report_success_or_saved_pause (__main__.Tests) ... ok
+test_25_final_partial_batch_is_saved (__main__.Tests) ... ok
+test_26_non_hash_etag_and_independent_sha256 (__main__.Tests) ... ok
+
+4 MiB current syscall counts: {'fdatasync': 5, 'fsync': 10, 'rename': 5}
+test_27_checkpoint_syscall_count (__main__.Tests) ... ok
+test_28_sync_interrupted_by_signal_retries_and_saves (__main__.Tests) ... ok
+test_29_initial_io_error_can_retry_without_manual_cleanup (__main__.Tests) ... ok
+test_30_hard_link_cannot_bypass_managed_write_protection (__main__.Tests) ... ok
+test_31_complete_reports_committed_final_offset (__main__.Tests) ... ok
+test_32_terminal_pause_resume_and_completion (__main__.Tests) ... ok
+test_33_terminal_status_and_plain_logs (__main__.Tests) ... ok
+test_34_narrow_terminal_no_color_and_error_output (__main__.Tests) ... ok
+
+----------------------------------------------------------------------
+Ran 34 tests in 9.009s
+
+OK

@@ -1,0 +1,172 @@
+cc -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Werror src/sparseget.c -o sparseget 
+python3 tests/test_sparseget.py ./sparseget
+test_01_create_is_sparse_and_zero_filled (__main__.Tests) ... ok
+test_02_positional_write_preserves_other_bytes_and_holes (__main__.Tests) ... ok
+test_03_reject_bad_sizes_and_bounds (__main__.Tests) ... ok
+test_04_existing_file_is_never_truncated (__main__.Tests) ... ok
+test_05_full_download_is_byte_identical (__main__.Tests) ... ok
+test_06_ctrl_c_and_resume_from_saved_offset (__main__.Tests) ... ok
+test_07_changed_remote_data_rejected (__main__.Tests) ... ok
+test_08_modified_local_prefix_rejected (__main__.Tests) ... ok
+test_09_replaced_local_inode_rejected (__main__.Tests) ... ok
+test_10_bad_http_responses_are_rejected (__main__.Tests) ... ok
+test_11_network_truncation_can_resume (__main__.Tests) ... ok
+test_12_concurrent_writer_rejected (__main__.Tests) ... ok
+test_13_symlinks_and_non_regular_files_rejected (__main__.Tests) ... ok
+test_14_manual_write_to_managed_download_rejected (__main__.Tests) ... ok
+test_15_bad_state_and_changed_url_rejected (__main__.Tests) ... ok
+test_16_invalid_url_and_usage (__main__.Tests) ... ok
+test_17_empty_remote_file (__main__.Tests) ... ok
+test_18_uncheckpointed_suffix_is_overwritten_on_resume (__main__.Tests) ... ok
+test_19_maximum_accepted_url_round_trips_through_state (__main__.Tests) ... ok
+test_20_maximum_accepted_etag_round_trips_through_state (__main__.Tests) ... ok
+test_21_signed_content_range_is_rejected (__main__.Tests) ... ok
+test_22_sigkill_discards_uncommitted_tail (__main__.Tests) ... ok
+test_23_sigkill_during_each_commit_stage (__main__.Tests) ... ok
+test_24_commit_errors_never_report_success_or_saved_pause (__main__.Tests) ... ok
+test_25_final_partial_batch_is_saved (__main__.Tests) ... ok
+test_26_non_hash_etag_and_independent_sha256 (__main__.Tests) ... ok
+
+4 MiB baseline syscall counts: {'fdatasync': 65, 'fsync': 130, 'rename': 65}
+
+4 MiB current syscall counts: {'fdatasync': 5, 'fsync': 10, 'rename': 5}
+test_27_checkpoint_syscall_count (__main__.Tests) ... ok
+test_28_sync_interrupted_by_signal_retries_and_saves (__main__.Tests) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 5.785s
+
+OK
+make clean
+make[1]: Entering directory '/home/cat/sparse-downloader'
+rm -f sparseget
+make[1]: Leaving directory '/home/cat/sparse-downloader'
+ASAN_OPTIONS=detect_leaks=0 SPARSEGET_SANITIZED=1 make CFLAGS='-O1 -g -std=c11 -Wall -Wextra -Wpedantic -Werror -fsanitize=address,undefined -fno-omit-frame-pointer' LDFLAGS='-fsanitize=address,undefined' check
+make[1]: Entering directory '/home/cat/sparse-downloader'
+cc -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -O1 -g -std=c11 -Wall -Wextra -Wpedantic -Werror -fsanitize=address,undefined -fno-omit-frame-pointer src/sparseget.c -o sparseget -fsanitize=address,undefined
+python3 tests/test_sparseget.py ./sparseget
+test_01_create_is_sparse_and_zero_filled (__main__.Tests) ... ok
+test_02_positional_write_preserves_other_bytes_and_holes (__main__.Tests) ... ok
+test_03_reject_bad_sizes_and_bounds (__main__.Tests) ... ok
+test_04_existing_file_is_never_truncated (__main__.Tests) ... ok
+test_05_full_download_is_byte_identical (__main__.Tests) ... ok
+test_06_ctrl_c_and_resume_from_saved_offset (__main__.Tests) ... ok
+test_07_changed_remote_data_rejected (__main__.Tests) ... ok
+test_08_modified_local_prefix_rejected (__main__.Tests) ... ok
+test_09_replaced_local_inode_rejected (__main__.Tests) ... ok
+test_10_bad_http_responses_are_rejected (__main__.Tests) ... ok
+test_11_network_truncation_can_resume (__main__.Tests) ... ok
+test_12_concurrent_writer_rejected (__main__.Tests) ... ok
+test_13_symlinks_and_non_regular_files_rejected (__main__.Tests) ... ok
+test_14_manual_write_to_managed_download_rejected (__main__.Tests) ... ok
+test_15_bad_state_and_changed_url_rejected (__main__.Tests) ... ok
+test_16_invalid_url_and_usage (__main__.Tests) ... ok
+test_17_empty_remote_file (__main__.Tests) ... ok
+test_18_uncheckpointed_suffix_is_overwritten_on_resume (__main__.Tests) ... ok
+test_19_maximum_accepted_url_round_trips_through_state (__main__.Tests) ... ok
+test_20_maximum_accepted_etag_round_trips_through_state (__main__.Tests) ... ok
+test_21_signed_content_range_is_rejected (__main__.Tests) ... ok
+test_22_sigkill_discards_uncommitted_tail (__main__.Tests) ... ok
+test_23_sigkill_during_each_commit_stage (__main__.Tests) ... ok
+test_24_commit_errors_never_report_success_or_saved_pause (__main__.Tests) ... ok
+test_25_final_partial_batch_is_saved (__main__.Tests) ... ok
+test_26_non_hash_etag_and_independent_sha256 (__main__.Tests) ... ok
+
+4 MiB current syscall counts: {'fdatasync': 5, 'fsync': 10, 'rename': 5}
+test_27_checkpoint_syscall_count (__main__.Tests) ... ok
+test_28_sync_interrupted_by_signal_retries_and_saves (__main__.Tests) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 7.321s
+
+OK
+make[1]: Leaving directory '/home/cat/sparse-downloader'
+rm -f sparseget
+cc -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Werror src/sparseget.c -o sparseget 
+Demo directory: /home/cat/sparse-downloader/demo/resume-ft9v4jy1
+1. HTTP download; send SIGINT after the first progress line.
+resume_offset=0 total_bytes=4194304
+progress=65536/4194304 (1.6%) saved_offset=0
+paused: completed_offset=65536; rerun the same download command
+2. Paused sparse file:
+logical_bytes=4194304
+allocated_blocks_512=128
+allocated_bytes=65536
+space_saving_percent=98.44 (block-accounting estimate)
+hole_bytes=4128768
+hole_percent=98.44 (filesystem extent report)
+3. Rerun the same URL and output path:
+resume_offset=65536 total_bytes=4194304
+progress=98304/4194304 (2.3%) saved_offset=65536
+progress=163840/4194304 (3.9%) saved_offset=65536
+progress=229376/4194304 (5.5%) saved_offset=65536
+progress=294912/4194304 (7.0%) saved_offset=65536
+progress=360448/4194304 (8.6%) saved_offset=65536
+progress=425984/4194304 (10.2%) saved_offset=65536
+progress=491520/4194304 (11.7%) saved_offset=65536
+progress=557056/4194304 (13.3%) saved_offset=65536
+progress=622592/4194304 (14.8%) saved_offset=65536
+progress=688128/4194304 (16.4%) saved_offset=65536
+progress=753664/4194304 (18.0%) saved_offset=65536
+progress=819200/4194304 (19.5%) saved_offset=65536
+progress=884736/4194304 (21.1%) saved_offset=65536
+progress=950272/4194304 (22.7%) saved_offset=65536
+progress=1015808/4194304 (24.2%) saved_offset=65536
+progress=1081344/4194304 (25.8%) saved_offset=65536
+progress=1146880/4194304 (27.3%) saved_offset=1146880
+progress=1212416/4194304 (28.9%) saved_offset=1146880
+progress=1277952/4194304 (30.5%) saved_offset=1146880
+progress=1343488/4194304 (32.0%) saved_offset=1146880
+progress=1409024/4194304 (33.6%) saved_offset=1146880
+progress=1474560/4194304 (35.2%) saved_offset=1146880
+progress=1540096/4194304 (36.7%) saved_offset=1146880
+progress=1605632/4194304 (38.3%) saved_offset=1146880
+progress=1671168/4194304 (39.8%) saved_offset=1146880
+progress=1736704/4194304 (41.4%) saved_offset=1146880
+progress=1802240/4194304 (43.0%) saved_offset=1146880
+progress=1867776/4194304 (44.5%) saved_offset=1146880
+progress=1933312/4194304 (46.1%) saved_offset=1146880
+progress=1998848/4194304 (47.7%) saved_offset=1146880
+progress=2064384/4194304 (49.2%) saved_offset=1146880
+progress=2129920/4194304 (50.8%) saved_offset=1146880
+progress=2195456/4194304 (52.3%) saved_offset=2195456
+progress=2260992/4194304 (53.9%) saved_offset=2195456
+progress=2326528/4194304 (55.5%) saved_offset=2195456
+progress=2392064/4194304 (57.0%) saved_offset=2195456
+progress=2457600/4194304 (58.6%) saved_offset=2195456
+progress=2523136/4194304 (60.2%) saved_offset=2195456
+progress=2588672/4194304 (61.7%) saved_offset=2195456
+progress=2654208/4194304 (63.3%) saved_offset=2195456
+progress=2719744/4194304 (64.8%) saved_offset=2195456
+progress=2785280/4194304 (66.4%) saved_offset=2195456
+progress=2850816/4194304 (68.0%) saved_offset=2195456
+progress=2916352/4194304 (69.5%) saved_offset=2195456
+progress=2981888/4194304 (71.1%) saved_offset=2195456
+progress=3047424/4194304 (72.7%) saved_offset=2195456
+progress=3112960/4194304 (74.2%) saved_offset=2195456
+progress=3178496/4194304 (75.8%) saved_offset=2195456
+progress=3244032/4194304 (77.3%) saved_offset=3244032
+progress=3309568/4194304 (78.9%) saved_offset=3244032
+progress=3375104/4194304 (80.5%) saved_offset=3244032
+progress=3440640/4194304 (82.0%) saved_offset=3244032
+progress=3506176/4194304 (83.6%) saved_offset=3244032
+progress=3571712/4194304 (85.2%) saved_offset=3244032
+progress=3637248/4194304 (86.7%) saved_offset=3244032
+progress=3702784/4194304 (88.3%) saved_offset=3244032
+progress=3768320/4194304 (89.8%) saved_offset=3244032
+progress=3833856/4194304 (91.4%) saved_offset=3244032
+progress=3899392/4194304 (93.0%) saved_offset=3244032
+progress=3964928/4194304 (94.5%) saved_offset=3244032
+progress=4030464/4194304 (96.1%) saved_offset=3244032
+progress=4096000/4194304 (97.7%) saved_offset=3244032
+progress=4161536/4194304 (99.2%) saved_offset=3244032
+progress=4194304/4194304 (100.0%) saved_offset=3244032
+complete (compare source/destination SHA-256 separately for content verification)
+4. Independent SHA-256 of the actual source and destination files:
+2b07811057df887086f06a67edc6ebf911de8b6741156e7a2eb1416a4b8b1b2e   /home/cat/sparse-downloader/demo/resume-ft9v4jy1/source.bin
+127.0.0.1 - - [18/Jun/2024 05:14:45] "HEAD /file.bin HTTP/1.1" 200 -
+2b07811057df887086f06a67edc6ebf911de8b6741156e7a2eb1416a4b8b1b2e   /home/cat/sparse-downloader/demo/resume-ft9v4jy1/download.bin
+SHA-256 MATCH. ETag is used only as a remote version identifier.
+127.0.0.1 - - [18/Jun/2024 05:14:45] "GET /file.bin HTTP/1.1" 206 -
+127.0.0.1 - - [18/Jun/2024 05:14:45] "HEAD /file.bin HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jun/2024 05:14:45] "GET /file.bin HTTP/1.1" 206 -

@@ -1,0 +1,126 @@
+python3 tests/test_sparseget.py ./sparseget
+test_01_create_is_sparse_and_zero_filled (__main__.Tests) ... ok
+test_02_positional_write_preserves_other_bytes_and_holes (__main__.Tests) ... ok
+test_03_reject_bad_sizes_and_bounds (__main__.Tests) ... ok
+test_04_existing_file_is_never_truncated (__main__.Tests) ... ok
+test_05_full_download_is_byte_identical (__main__.Tests) ... ok
+test_06_ctrl_c_and_resume_from_saved_offset (__main__.Tests) ... ok
+test_07_changed_remote_data_rejected (__main__.Tests) ... ok
+test_08_modified_local_prefix_rejected (__main__.Tests) ... ok
+test_09_replaced_local_inode_rejected (__main__.Tests) ... ok
+test_10_bad_http_responses_are_rejected (__main__.Tests) ... ok
+test_11_network_truncation_can_resume (__main__.Tests) ... ok
+test_12_concurrent_writer_rejected (__main__.Tests) ... ok
+test_13_symlinks_and_non_regular_files_rejected (__main__.Tests) ... ok
+test_14_manual_write_to_managed_download_rejected (__main__.Tests) ... ok
+test_15_bad_state_and_changed_url_rejected (__main__.Tests) ... ok
+test_16_invalid_url_and_usage (__main__.Tests) ... ok
+test_17_empty_remote_file (__main__.Tests) ... ok
+test_18_uncheckpointed_suffix_is_overwritten_on_resume (__main__.Tests) ... ok
+test_19_maximum_accepted_url_round_trips_through_state (__main__.Tests) ... FAIL
+test_20_maximum_accepted_etag_round_trips_through_state (__main__.Tests) ... FAIL
+test_21_signed_content_range_is_rejected (__main__.Tests) ... FAIL
+
+======================================================================
+FAIL: test_19_maximum_accepted_url_round_trips_through_state (__main__.Tests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tests/test_sparseget.py", line 305, in test_19_maximum_accepted_url_round_trips_through_state
+    self.run_cmd("download",url,f)
+  File "tests/test_sparseget.py", line 99, in run_cmd
+    self.assertEqual(p.returncode, code, p.stdout + p.stderr)
+AssertionError: 1 != 0 : error: invalid resume state
+
+
+======================================================================
+FAIL: test_20_maximum_accepted_etag_round_trips_through_state (__main__.Tests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tests/test_sparseget.py", line 312, in test_20_maximum_accepted_etag_round_trips_through_state
+    self.run_cmd("download",self.base+"/long-etag",f)
+  File "tests/test_sparseget.py", line 99, in run_cmd
+    self.assertEqual(p.returncode, code, p.stdout + p.stderr)
+AssertionError: 1 != 0 : error: invalid resume state
+
+
+======================================================================
+FAIL: test_21_signed_content_range_is_rejected (__main__.Tests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tests/test_sparseget.py", line 316, in test_21_signed_content_range_is_rejected
+    self.run_cmd("download",self.base+"/signed-range",self.target(),code=1)
+  File "tests/test_sparseget.py", line 99, in run_cmd
+    self.assertEqual(p.returncode, code, p.stdout + p.stderr)
+AssertionError: 0 != 1 : resume_offset=0 total_bytes=4194304
+progress=65536/4194304 (1.6%)
+progress=131072/4194304 (3.1%)
+progress=196608/4194304 (4.7%)
+progress=262144/4194304 (6.2%)
+progress=327680/4194304 (7.8%)
+progress=393216/4194304 (9.4%)
+progress=458752/4194304 (10.9%)
+progress=524288/4194304 (12.5%)
+progress=589824/4194304 (14.1%)
+progress=655360/4194304 (15.6%)
+progress=720896/4194304 (17.2%)
+progress=786432/4194304 (18.8%)
+progress=851968/4194304 (20.3%)
+progress=917504/4194304 (21.9%)
+progress=983040/4194304 (23.4%)
+progress=1048576/4194304 (25.0%)
+progress=1114112/4194304 (26.6%)
+progress=1179648/4194304 (28.1%)
+progress=1245184/4194304 (29.7%)
+progress=1310720/4194304 (31.2%)
+progress=1376256/4194304 (32.8%)
+progress=1441792/4194304 (34.4%)
+progress=1507328/4194304 (35.9%)
+progress=1572864/4194304 (37.5%)
+progress=1638400/4194304 (39.1%)
+progress=1703936/4194304 (40.6%)
+progress=1769472/4194304 (42.2%)
+progress=1835008/4194304 (43.8%)
+progress=1900544/4194304 (45.3%)
+progress=1966080/4194304 (46.9%)
+progress=2031616/4194304 (48.4%)
+progress=2097152/4194304 (50.0%)
+progress=2162688/4194304 (51.6%)
+progress=2228224/4194304 (53.1%)
+progress=2293760/4194304 (54.7%)
+progress=2359296/4194304 (56.2%)
+progress=2424832/4194304 (57.8%)
+progress=2490368/4194304 (59.4%)
+progress=2555904/4194304 (60.9%)
+progress=2621440/4194304 (62.5%)
+progress=2686976/4194304 (64.1%)
+progress=2752512/4194304 (65.6%)
+progress=2818048/4194304 (67.2%)
+progress=2883584/4194304 (68.8%)
+progress=2949120/4194304 (70.3%)
+progress=3014656/4194304 (71.9%)
+progress=3080192/4194304 (73.4%)
+progress=3145728/4194304 (75.0%)
+progress=3211264/4194304 (76.6%)
+progress=3276800/4194304 (78.1%)
+progress=3342336/4194304 (79.7%)
+progress=3407872/4194304 (81.2%)
+progress=3473408/4194304 (82.8%)
+progress=3538944/4194304 (84.4%)
+progress=3604480/4194304 (85.9%)
+progress=3670016/4194304 (87.5%)
+progress=3735552/4194304 (89.1%)
+progress=3801088/4194304 (90.6%)
+progress=3866624/4194304 (92.2%)
+progress=3932160/4194304 (93.8%)
+progress=3997696/4194304 (95.3%)
+progress=4063232/4194304 (96.9%)
+progress=4128768/4194304 (98.4%)
+progress=4194304/4194304 (100.0%)
+complete
+
+
+----------------------------------------------------------------------
+Ran 21 tests in 2.120s
+
+FAILED (failures=3)
+make: *** [Makefile:13: check] Error 1
